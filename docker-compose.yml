@@ -1,0 +1,20 @@
+version: "3"
+
+networks:
+    laravel:
+
+services:
+    mysql:
+        image: mysql:5.7
+        container_name: mysql
+        restart: always
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_DATABASE: db_pamer
+            MYSQL_USER: sipmi
+            MYSQL_PASSWORD: sipmi
+            MYSQL_ROOT_PASSWORD: sipmi
+
+        networks:
+            - laravel
