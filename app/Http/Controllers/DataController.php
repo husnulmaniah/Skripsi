@@ -27,15 +27,15 @@ class DataController extends Controller
 
         return view('Data',compact('data','Pendonor','PetugasPengisi','Petugas'));
     }
-    public function print()
-    {
-        $Pendonor=PendonorModel::get();
-        $Petugas=PetugasAftapModel::get();
-        $PetugasPengisi=PetugasHbModels::get();
-        $data=DataPendonorModels::get();
+    // public function print()
+    // {
+    //     $Pendonor=PendonorModel::get();
+    //     $Petugas=PetugasAftapModel::get();
+    //     $PetugasPengisi=PetugasHbModels::get();
+    //     $data=DataPendonorModels::get();
 
-        return view('DataPDF',compact('data','Pendonor','PetugasPengisi','Petugas'));
-    }
+    //     return view('DataPDF',compact('data','Pendonor','PetugasPengisi','Petugas'));
+    // }
 
     /**
      * Show the form for creating a new resource.
@@ -86,9 +86,16 @@ class DataController extends Controller
         //
     }
 
-    // public function print()
-    // {
-    //     $pdf = PDF::loadview('Data', $datap)->setPaper('F4','landscape');
-    //     return $pdf->stream();
-    // }
+    public function print()
+    {
+        $Pendonor=PendonorModel::all();
+        $Petugas=PetugasAftapModel::all();
+        $PetugasPengisi=PetugasHbModels::all();
+        $data=DataPendonorModels::all();
+
+        $pdf = PDF::loadview('Datalaporan',[
+            'Pendonor'=>$Pendonor, 'Petugas'=>$Petugas, 'PetugasPengisi'=>$PetugasPengisi, 'data'=>$data
+            ])->setPaper('F4','landscape');
+        return $pdf->stream('Laporan-Pendonor-Sukarela-pdf');
+    }
 }
