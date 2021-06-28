@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Pekerjaan;
 use App\Models\PendonorModel;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade as PDF;
 
 class PendonorController extends Controller
 {
@@ -112,5 +113,14 @@ class PendonorController extends Controller
         $data=PendonorModel::find($id);
         $data->delete();
         return redirect('Pendonor');
+    }
+
+    public function print()
+    {
+        $dataP=Pekerjaan::all();
+        $data=PendonorModel::all();
+        // return view('Pendonor',compact('data'),compact('dataP'));
+        $pdf= PDF::loadview('LaporanPendonor',compact('data','dataP'))->setPaper('A3','landscape');
+        return $pdf->stream('Laporan-Pendonor-pdf');
     }
 }

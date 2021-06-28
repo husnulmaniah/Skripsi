@@ -65,6 +65,7 @@ Route::post('Pendonor/create','PendonorController@create')->name('CreatePendonor
 Route::get('Pendonor/{id}/edit','PendonorController@edit')->name('EditPendonor');
 Route::post('Pendonor/update/{id}','PendonorController@update')->name('UpdatePendonor');
 Route::get('Pendonor/{id}/delete','PendonorController@destroy')->name('DeletePendonor');
+Route::get('PrintPendonor','PendonorController@print')->name('PrintPendonor');
 
 Route::get('Petugas','PetugasController@index')->name('Petugas');
 Route::post('Petugas/create','PetugasController@create')->name('CreatePetugas');

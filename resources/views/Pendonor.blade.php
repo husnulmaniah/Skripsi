@@ -19,6 +19,11 @@
             </button>
             </div>
           </div>
+          <div class="col-2 col-md-2 col-lg-2">
+            <div class="card">
+            <a class="btn btn-warning" target="-blank" href="{{Route('PrintPendonor')}}"><i class="fas fa-print"> Laporan</i></a>
+            </div>
+          </div>
         </div>
 
         <div class="row">

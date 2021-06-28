@@ -17,6 +17,7 @@ class CreateSentMesTable extends Migration
             $table->id();
             $table->foreignId('pesanId')->constrained('pesans');
             $table->foreignId('contakId')->constrained('_pendonors');
+            $table->date('next_msg');
             $table->timestamps();
             $table->softDeletes();
         });

@@ -93,9 +93,11 @@ class DataController extends Controller
         $PetugasPengisi=PetugasHbModels::all();
         $data=DataPendonorModels::all();
 
-        $pdf = PDF::loadview('Datalaporan',[
-            'Pendonor'=>$Pendonor, 'Petugas'=>$Petugas, 'PetugasPengisi'=>$PetugasPengisi, 'data'=>$data
-            ])->setPaper('F4','landscape');
+        // $pdf = PDF::loadview('Datalaporan',[
+        //     'Pendonor'=>$Pendonor, 'Petugas'=>$Petugas, 'PetugasPengisi'=>$PetugasPengisi, 'data'=>$data
+        //     ])->setPaper('F4','landscape');
+
+        $pdf= PDF::loadview('Datalaporan',compact('Pendonor','Petugas','PetugasPengisi','data'))->setPaper('F4','Landscape');
         return $pdf->stream('Laporan-Pendonor-Sukarela-pdf');
     }
 }

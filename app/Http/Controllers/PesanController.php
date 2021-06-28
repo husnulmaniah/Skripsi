@@ -5,8 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\PendonorModel;
 use App\Models\PesanModel;
 use App\Models\SentPesanModel;
+use Carbon\Carbon;
 use Facade\FlareClient\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
 class PesanController extends Controller
@@ -20,7 +22,8 @@ class PesanController extends Controller
     {
         $pesan=PesanModel::all();
         $contact=PendonorModel::all();
-        return View('SentPesan', compact('pesan','contact'));
+        $data=SentPesanModel::all();
+        return View('SentPesan', compact('data','pesan','contact'));
     }
 
     /**
@@ -30,17 +33,28 @@ class PesanController extends Controller
      */
     public function create(Request $request)
     {
+        $pesans=PesanModel::where("id",$request->input('pesanId'))->value('pesan');
+        $contak=PendonorModel::where("id",$request->input('contakId'))->value('ponsel');
+        $my_date=carbon::now();
         $response = Http::post('http://localhost:8081/ex/v1/notification',[
             'channel' => 'whatsapp',
             'souce' => 'biz-otoraja',
             'payload' => [
-                'to' => $request->input('pesanId'),
-                'is_sha' => false,
-                'text' => $request->input('contakId'),
-            ]
+                'to' => $contak,
+                'is_shm' => true,
+                'text' => $pesans
+            ],
+            'template_name'=>'otoraja_questionnaire_thank_you'
         ])->json();
+        $data= array(
+            'pesanId'=>$request->input('pesanId'),
+            'contakId'=>$request->input('contakId'),
+            'next_msg'=>$my_date->addDays(60)->format("y-m-d")
+        );
+        DB::table('sent_mes')->insert($data);
         // return dd($response);
-        return view('PesanSuccess',$response);
+        // return view('PesanSuccess',$response);
+        return view('SentPesan',$response);
     }
 
     /**

@@ -16,7 +16,7 @@ class CreateDatapendonorsTable extends Migration
         Schema::create('datapendonors', function (Blueprint $table) {
             $table->id();
             $table->string('noTrans');
-            $table->date('tanggal');
+            // $table->date('tanggal');
             $table->foreignId('pendonorId')->constrained('_pendonors');
             $table->foreignId('petugasaftapsId')->constrained('petugasaftaps');
             $table->foreignId('petugasPengisiId')->constrained('petugas_hbs');

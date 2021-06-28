@@ -11,7 +11,9 @@ class DataPendonorModels extends Model
         'noTrans',
         'pendonorId',
         'petugasaftapsId',
-        'petugasPengisiId'
+        'petugasPengisiId',
+        'created_at',
+        'updated_at'
     ];
 
     public function Pendonor()

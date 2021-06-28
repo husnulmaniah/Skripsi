@@ -10,6 +10,7 @@ class SentPesanModel extends Model
     protected $fillable= [
         'pesanId',
         'contakId',
+        'next_msg'
     ];
 
     public function Pesan()
